@@ -1,0 +1,32 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:15
+    container_name: demo-postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: dvdrental
+      POSTGRES_USER: rlawnsdud05
+      POSTGRES_PASSWORD: Rlawnsdud1@
+
+  redis:
+    image: redis:7
+    container_name: demo-redis
+    ports:
+      - "6379:6379"
+
+  app:
+    image: myapp:0.1   # 위에서 빌드한 Spring Boot 이미지 이름
+    container_name: demo-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/dvdrental
+      SPRING_DATASOURCE_USERNAME: rlawnsdud05
+      SPRING_DATASOURCE_PASSWORD: Rlawnsdud1@
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+    depends_on:
+      - postgres
+      - redis

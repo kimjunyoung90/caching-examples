@@ -1,24 +1,31 @@
 package com.example.cachingexamples.controller;
 
 import com.example.cachingexamples.domain.Category;
-import com.example.cachingexamples.repository.CategoryRepository;
+import com.example.cachingexamples.service.CategoryService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
+@RequiredArgsConstructor
 public class CategoryController {
 
-    private final CategoryRepository categoryRepository;
+    private final CategoryService categoryService;
 
-    public CategoryController(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
-    }
-
-    @GetMapping("/categories/{categoryId}")
-    public ResponseEntity<Category> getCategory(@PathVariable Long categoryId) {
-        Category category = categoryRepository.findById(categoryId).orElse(null);
-        return ResponseEntity.ok(category);
+    @GetMapping("/categories")
+    public ResponseEntity<List<Category>> getAllCategories(@RequestParam(name = "mode", required = false, defaultValue = "db") String mode) throws JsonProcessingException {
+        switch (mode) {
+            case "local":
+                return ResponseEntity.ok(categoryService.getAllCategoriesWithLocalCache());
+//            case "redis":
+//                return ResponseEntity.ok(categoryService.getAllCategoriesWithRedis());
+            default:
+                return ResponseEntity.ok(categoryService.getAllCategories());
+        }
     }
 }
