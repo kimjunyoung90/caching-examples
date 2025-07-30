@@ -22,8 +22,8 @@ public class CategoryController {
         switch (mode) {
             case "local":
                 return ResponseEntity.ok(categoryService.getAllCategoriesWithLocalCache());
-//            case "redis":
-//                return ResponseEntity.ok(categoryService.getAllCategoriesWithRedis());
+            case "redis":
+                return ResponseEntity.ok(categoryService.getAllCategoriesWithRedis());
             default:
                 return ResponseEntity.ok(categoryService.getAllCategories());
         }

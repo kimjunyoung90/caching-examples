@@ -24,9 +24,9 @@ public class CategoryService {
         return categoryRepository.findAll();
     }
 
-    @Cacheable(cacheNames = "localCache", key = "'category'")
+    @Cacheable(cacheNames = "redisCache", key = "'category'")
     public List<Category> getAllCategoriesWithRedis() {
-        System.out.println("DB에서 조회"); // 로그 찍히면 캐시 안 된 것
+        System.out.println("DB에서 조회 (Redis)");
         return categoryRepository.findAll();
     }
 
