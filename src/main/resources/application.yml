@@ -7,39 +7,20 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: none # 또는 none, validate 등으로 조정 가능
-    show-sql: true
+      ddl-auto: none
+    show-sql: false
     properties:
       hibernate:
-        format_sql: true
+        format_sql: false
     database-platform: org.hibernate.dialect.PostgreSQLDialect
 
   cache:
     type: caffeine
-
-caffeine:
-  spec: maximumSize=1000,expireAfterWrite=10s
-
-logging:
-  level:
-    org.hibernate.SQL: DEBUG
-    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
   data:
     redis:
       host: ${SPRING_REDIS_HOST:localhost}
       port: ${SPRING_REDIS_PORT:6379}
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include:
-          - health
-          - info
-          - prometheus
-          - metrics
-  prometheus:
-    metrics:
-      export:
-        enabled: true
+caffeine:
+  spec: maximumSize=1000,expireAfterWrite=10s
