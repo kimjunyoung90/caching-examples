@@ -24,7 +24,7 @@
 
 *   **Language**: Java 17
 *   **Framework**: Spring Boot
-*   **Database**: H2 (메모리 DB), PostgreSQL (Docker)
+*   **Database**: H2 (메모리 DB)
 *   **Cache**: Caffeine (로컬 캐시), Redis (분산 캐시)
 *   **Build**: Gradle
 
@@ -35,7 +35,7 @@
 ### 1. 사전 준비
 
 *   **Java 17** 설치
-*   **Docker** 설치 (Redis와 PostgreSQL 실행을 위해 필요)
+*   **Docker** 설치 (Redis 실행을 위해 필요)
 
 ### 2. 프로젝트 빌드
 
@@ -47,7 +47,7 @@
 
 ### 3. Docker Compose로 실행 (권장)
 
-가장 간단하게 프로젝트 환경(Spring Boot 애플리케이션, PostgreSQL, Redis)을 한 번에 실행하는 방법입니다.
+가장 간단하게 프로젝트 환경(Spring Boot 애플리케이션, Redis)을 한 번에 실행하는 방법입니다.
 
 ```bash
 docker-compose up
