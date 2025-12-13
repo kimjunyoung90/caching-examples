@@ -1,5 +1,5 @@
 # base 이미지 설정(Java 기반 애플리케이션)
-FROM openjdk:17-jdk
+FROM eclipse-temurin:17-jdk-focal
 
 # 현재 생성된 jar 파일 위치를 변수로 설정
 ARG JAR_FILE=build/libs/*.jar
