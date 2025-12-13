@@ -37,4 +37,9 @@ public class Product {
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
     }
+
+    public void update(String name, Integer price) {
+        this.name = name;
+        this.price = price;
+    }
 }

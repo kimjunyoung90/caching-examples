@@ -13,7 +13,7 @@ public record ProductResponse(
         LocalDateTime createdAt,
         LocalDateTime updatedAt
 ) {
-    ProductResponse from(Product product) {
+    public static ProductResponse from (Product product) {
         return ProductResponse.builder()
                 .id(product.getId())
                 .name(product.getName())
