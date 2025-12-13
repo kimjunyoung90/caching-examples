@@ -1,12 +1,12 @@
 # [주니어 개발자 교육용] Spring Boot 캐싱 전략 예제 프로젝트
 
-안녕하세요, 주니어 백엔드 개발자 여러분! 👋
+안녕하세요, 주니어 백엔드 개발자 여러분!
 
 이 프로젝트는 Spring Boot 환경에서 **캐싱(Caching)**의 개념을 쉽고 재미있게 학습할 수 있도록 설계된 예제 프로젝트입니다. 직접 코드를 실행하고, 로그를 확인하며 캐시가 어떻게 동작하는지, 왜 필요한지를 몸으로 체득할 수 있습니다.
 
 ---
 
-## 🎯 학습 목표
+## 학습 목표
 
 이 프로젝트를 통해 여러분은 다음을 배울 수 있습니다.
 
@@ -22,7 +22,7 @@
 
 ---
 
-## 🛠️ 기술 스택
+## 기술 스택
 
 *   **Language**: Java 17
 *   **Framework**: Spring Boot
@@ -32,7 +32,7 @@
 
 ---
 
-## 🚀 프로젝트 실행 방법
+## 프로젝트 실행 방법
 
 ### 1. 사전 준비
 
@@ -59,11 +59,11 @@ docker-compose up
 
 ---
 
-## 📚 단계별 캐싱 전략 학습하기
+## 단계별 캐싱 전략 학습하기
 
 이 프로젝트는 `level0`부터 `level2`까지, 단계별로 캐싱 전략을 학습할 수 있도록 구성되어 있습니다. 각 단계의 코드를 비교하며 어떤 점이 달라졌는지 확인해보세요!
 
-### 🐌 Level 0: 캐시가 없는 기본 상태
+### Level 0: 캐시가 없는 기본 상태
 
 **경로**: `src/main/java/com/example/cachingexamples/level0`
 
@@ -80,9 +80,9 @@ public ProductResponse getProduct(Long id) {
 }
 ```
 
-**🤔 생각해보기**: 같은 상품을 여러 번 조회하면 어떤 일이 발생할까요? `BasicProductController`의 조회 API를 여러 번 호출하며 응답 시간과 로그를 확인해보세요.
+**생각해보기**: 같은 상품을 여러 번 조회하면 어떤 일이 발생할까요? `BasicProductController`의 조회 API를 여러 번 호출하며 응답 시간과 로그를 확인해보세요.
 
-### 🐣 Level 1: 기본적인 캐시 적용 (Cache-Aside)
+### Level 1: 기본적인 캐시 적용 (Cache-Aside)
 
 **경로**: `src/main/java/com/example/cachingexamples/level1`
 
@@ -132,7 +132,7 @@ public ProductResponse updateProduct(Long id, ProductUpdateRequest request) {
 }
 ```
 
-### 🚀 Level 2: 다양한 쓰기 전략 (Write Strategies)
+### Level 2: 다양한 쓰기 전략 (Write Strategies)
 
 **경로**: `src/main/java/com/example/cachingexamples/level2`
 
@@ -181,7 +181,7 @@ public ProductResponse updateWithWriteAround(Long id, ProductUpdateRequest reque
 
 ---
 
-## ⚙️ 로컬 캐시 vs 분산 캐시切换
+## 로컬 캐시 vs 분산 캐시
 
 `application.yml` 파일에서 `spring.profiles.active` 값을 변경하여 로컬 캐시와 분산 캐시를 손쉽게 전환하며 테스트할 수 있습니다.
 
@@ -199,10 +199,10 @@ spring:
 
 ---
 
-## 🎓 핵심 정리
+## 핵심 정리
 
 *   **캐시는 성능 향상의 핵심 열쇠입니다.** 반복적인 DB 조회를 줄여 애플리케이션의 응답 속도를 크게 개선할 수 있습니다.
 *   **상황에 맞는 캐시를 선택해야 합니다.** 단일 서버 환경이라면 `Caffeine` 같은 로컬 캐시로도 충분하지만, 여러 서버를 운영하는 분산 환경이라면 `Redis` 같은 분산 캐시가 필수적입니다.
 *   **데이터 정합성이 중요합니다.** 데이터가 변경되었을 때 캐시를 어떻게 처리할지(`@CacheEvict`, `@CachePut`) 항상 고민해야 합니다.
 
-이 프로젝트를 통해 캐싱에 대한 자신감을 얻고, 실제 프로젝트에 자신있게 적용해보시길 바랍니다! 😊
+이 프로젝트를 통해 캐싱에 대한 자신감을 얻고, 실제 프로젝트에 자신있게 적용해보시길 바랍니다!
