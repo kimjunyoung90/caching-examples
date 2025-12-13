@@ -47,7 +47,7 @@ public class WriteStrategyService {
      */
     @CacheEvict(value = "products", key = "#id")
     @Transactional
-    public ProductResponse updateWithWriteAround(Long id, ProductUpdateRequest request) {
+    public ProductResponse updateWithEvict(Long id, ProductUpdateRequest request) {
         Product product = productRepository.findById(id)
                 .orElseThrow();
         product.update(request.name(), request.price());
