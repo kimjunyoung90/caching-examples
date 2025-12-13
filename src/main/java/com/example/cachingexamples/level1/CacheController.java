@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/level1/products")
 @RequiredArgsConstructor
 @Slf4j
-public class LocalCacheController {
-    private final LocalCacheProductService productService;
+public class CacheController {
+    private final CacheProductService productService;
 
     @GetMapping("/{id}")
     public ProductResponse getProduct(@PathVariable Long id) {

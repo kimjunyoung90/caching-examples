@@ -5,7 +5,6 @@ import com.example.cachingexamples.common.dto.ProductResponse;
 import com.example.cachingexamples.common.dto.ProductUpdateRequest;
 import com.example.cachingexamples.common.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
-import org.hibernate.annotations.Cache;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -13,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class LocalCacheProductService {
+public class CacheProductService {
 
     private final ProductRepository productRepository;
 
