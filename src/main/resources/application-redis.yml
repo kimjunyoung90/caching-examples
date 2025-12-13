@@ -1,0 +1,14 @@
+spring:
+  config:
+    activate:
+      on-profile: redis
+
+  cache:
+    type: redis
+    redis:
+      time-to-live: 600000  # 전역 ttl 설정
+
+  data:
+    redis:
+      host: ${SPRING_REDIS_HOST:localhost}
+      port: ${SPRING_REDIS_PORT:6379}

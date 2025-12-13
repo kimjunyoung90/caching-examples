@@ -1,26 +1,23 @@
 spring:
-  datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/dvdrental}
-    username: ${SPRING_DATASOURCE_USERNAME:rlawnsdud05}
-    password: ${SPRING_DATASOURCE_PASSWORD:Rlawnsdud1@}
-    driver-class-name: org.postgresql.Driver
+  application:
+    name: cache-examples
+
+  profile:
+    active: local # 기본 profile 설정
 
   jpa:
     hibernate:
-      ddl-auto: none
-    show-sql: false
+      ddl-auto: create
+    show-sql: true
     properties:
       hibernate:
-        format_sql: false
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
 
-  cache:
-    type: caffeine
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
 
-  data:
-    redis:
-      host: ${SPRING_REDIS_HOST:localhost}
-      port: ${SPRING_REDIS_PORT:6379}
-
-caffeine:
-  spec: maximumSize=1000,expireAfterWrite=10s
+logging:
+  level:
+    com.example.cache: DEBUG
+    org.springframework.cache: TRACE

@@ -1,0 +1,10 @@
+spring:
+  config:
+    activate:
+      on-profile: local
+
+  cache:
+    type: caffeine
+    cache-names: products
+    caffeine:
+      spec: maximumSize=100,expireAfterWrite=10m # maximumSize : 캐시당 캐싱 가능한 데이터 수, expireAfterWrite : 전역 TTL
