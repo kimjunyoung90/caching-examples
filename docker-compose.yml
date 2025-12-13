@@ -1,18 +1,66 @@
-version: "3"
+version: '3.8'
+
 services:
+  # 1. Redis (분산 캐시 저장소)
   redis:
     image: redis:7
-    container_name: demo-redis
+    container_name: cache-app-redis
     ports:
       - "6379:6379"
+    # Redis Exporter가 Redis 서버에 접근할 수 있도록 네트워크에 정의합니다.
+    # Exporter가 없으면 Redis 지표(Hit/Miss)를 수집하기 어렵습니다.
 
+  # 2. Redis Exporter (Redis 자체 metrics를 수집하여 모니터링 시스템(prometheus)이 이해할 수 있는 형식으로 변환하고 노출하는 독립적 소프트웨어)
+  redis-exporter:
+    image: oliver006/redis_exporter:latest
+    container_name: redis-exporter
+    # command: --redis.addr <호스트명>:<포트>
+    command: --redis.addr redis:6379 # Docker Network에서 'redis' 서비스 이름으로 접속
+    ports:
+      - "9121:9121" # Prometheus가 접근할 포트
+    depends_on:
+      - redis
+
+  # 3. Spring Boot 애플리케이션 서비스
   app:
-    build: .  # 이미지 빌드 자동화
-    container_name: demo-app
+    build: .
+    container_name: cache-app
     ports:
       - "8080:8080"
     environment:
-      SPRING_REDIS_HOST: redis
-      SPRING_REDIS_PORT: 6379
+      # Redis 접속 정보는 Docker 네트워크에서 서비스 이름 'redis'로 접근합니다.
+      - SPRING_REDIS_HOST=redis
+      - SPRING_REDIS_PORT=6379
+      - SPRING_PROFILES_ACTIVE=distributed # 분산 캐시 설정 활성화
+      - SPRING_APPLICATION_NAME=cache-monitoring-app
+      # Actuator 엔드포인트를 노출하여 Prometheus가 긁어갈 수 있도록 합니다.
     depends_on:
       - redis
+      - redis-exporter
+
+  # 4. Prometheus 서비스 (지표 수집 및 저장)
+  prometheus:
+    image: prom/prometheus:v2.40.1
+    container_name: prometheus
+    volumes:
+      # prometheus.yml 파일은 별도로 생성하여 애플리케이션 및 Exporter 지표를 긁어가도록 설정해야 합니다.
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    ports:
+      - "9090:9090" # Prometheus 웹 UI 포트
+    depends_on:
+      - app
+      - redis-exporter
+
+  # 5. Grafana 서비스 (대시보드 시각화)
+  grafana:
+    image: grafana/grafana:9.3.2
+    container_name: grafana
+    ports:
+      - "3000:3000" # Grafana 웹 UI 포트
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    depends_on:
+      - prometheus
