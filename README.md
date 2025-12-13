@@ -55,15 +55,22 @@
 - 주요 의존성: `spring-boot-starter-data-jpa`, `spring-boot-starter-data-redis`, `spring-boot-starter-cache`, `caffeine`, `lombok`
 - Redis 서버 필요 (로컬 또는 Docker)
 
-### (2) Docker로 Redis 실행 예시
+### (2) 애플리케이션 빌드 및 실행
 ```bash
-docker run --name redis -p 6379:6379 -d redis
+# 1. 애플리케이션 빌드
+./gradlew clean build
+
+# 2. Docker Compose로 전체 환경 실행 (PostgreSQL, Redis, Spring Boot 앱)
+docker compose up
 ```
 
-### (3) 애플리케이션 빌드 및 실행
+### (3) 개별 서비스 실행 (선택사항)
 ```bash
-docker build -t myapp:0.1 .
-docker compose up
+# Redis만 실행
+docker run --name redis -p 6379:6379 -d redis
+
+# PostgreSQL만 실행
+docker run --name postgres -e POSTGRES_DB=dvdrental -e POSTGRES_USER=rlawnsdud05 -e POSTGRES_PASSWORD=Rlawnsdud1@ -p 5432:5432 -d postgres:15
 ```
 
 ---

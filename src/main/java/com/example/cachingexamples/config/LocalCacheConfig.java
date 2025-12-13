@@ -22,7 +22,7 @@ public class LocalCacheConfig {
      public CacheManager cacheManager() {
 
          CaffeineCache caffeineCache = new CaffeineCache(
-                 "popular_posts_cache", //@Cacheable에서 사용할 캐시 이름
+                 "products", //@Cacheable에서 사용할 캐시 이름
                  Caffeine.newBuilder()
                          .expireAfterWrite(5, TimeUnit.MINUTES)
                          .maximumSize(100)

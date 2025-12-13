@@ -17,7 +17,7 @@ services:
       - "6379:6379"
 
   app:
-    image: myapp:0.1   # 위에서 빌드한 Spring Boot 이미지 이름
+    build: .  # 이미지 빌드 자동화
     container_name: demo-app
     ports:
       - "8080:8080"

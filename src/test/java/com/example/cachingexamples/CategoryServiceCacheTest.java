@@ -1,7 +1,7 @@
 package com.example.cachingexamples;
 
-import com.example.cachingexamples.domain.Category;
-import com.example.cachingexamples.repository.CategoryRepository;
+import com.example.cachingexamples.common.domain.Product;
+import com.example.cachingexamples.common.repository.ProductRepository;
 import com.example.cachingexamples.service.CategoryService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -24,7 +24,7 @@ class CategoryServiceCacheTest {
     @Autowired
     CacheManager cacheManager;
     @MockBean
-    CategoryRepository categoryRepository;
+    ProductRepository productRepository;
 
     @BeforeEach
     void setUp() {
@@ -41,9 +41,9 @@ class CategoryServiceCacheTest {
     @DisplayName("로컬 캐시 동작 테스트")
     void testLocalCache() {
         System.out.println("=== LocalCache 1st ===");
-        List<Category> first = categoryService.getAllCategoriesWithLocalCache();
+        List<Product> first = categoryService.getAllCategoriesWithLocalCache();
         System.out.println("=== LocalCache 2nd ===");
-        List<Category> second = categoryService.getAllCategoriesWithLocalCache();
+        List<Product> second = categoryService.getAllCategoriesWithLocalCache();
         // 두 번째 호출 시 DB에서 조회 로그가 출력되지 않아야 정상
     }
 
@@ -51,9 +51,9 @@ class CategoryServiceCacheTest {
     @DisplayName("Redis 캐시 동작 테스트")
     void testRedisCache() {
         System.out.println("=== RedisCache 1st ===");
-        List<Category> first = categoryService.getAllCategoriesWithRedis();
+        List<Product> first = categoryService.getAllCategoriesWithRedis();
         System.out.println("=== RedisCache 2nd ===");
-        List<Category> second = categoryService.getAllCategoriesWithRedis();
+        List<Product> second = categoryService.getAllCategoriesWithRedis();
         // 두 번째 호출 시 DB에서 조회 로그가 출력되지 않아야 정상
     }
 
@@ -61,36 +61,36 @@ class CategoryServiceCacheTest {
     @DisplayName("DB 직접 조회 테스트")
     void testDbDirect() {
         System.out.println("=== DB Direct 1st ===");
-        List<Category> first = categoryService.getAllCategories();
+        List<Product> first = categoryService.getAllCategories();
         System.out.println("=== DB Direct 2nd ===");
-        List<Category> second = categoryService.getAllCategories();
+        List<Product> second = categoryService.getAllCategories();
         // 두 번 모두 DB에서 조회 로그가 출력되어야 정상
     }
 
     @Test
     @DisplayName("로컬 캐시 동작 - Repository 1회 호출 검증")
     void testLocalCacheRepositoryCall() {
-        Mockito.when(categoryRepository.findAll()).thenReturn(List.of());
+        Mockito.when(productRepository.findAll()).thenReturn(List.of());
         categoryService.getAllCategoriesWithLocalCache();
         categoryService.getAllCategoriesWithLocalCache();
-        Mockito.verify(categoryRepository, Mockito.times(1)).findAll();
+        Mockito.verify(productRepository, Mockito.times(1)).findAll();
     }
 
     @Test
     @DisplayName("Redis 캐시 동작 - Repository 1회 호출 검증")
     void testRedisCacheRepositoryCall() {
-        Mockito.when(categoryRepository.findAll()).thenReturn(List.of());
+        Mockito.when(productRepository.findAll()).thenReturn(List.of());
         categoryService.getAllCategoriesWithRedis();
         categoryService.getAllCategoriesWithRedis();
-        Mockito.verify(categoryRepository, Mockito.times(1)).findAll();
+        Mockito.verify(productRepository, Mockito.times(1)).findAll();
     }
 
     @Test
     @DisplayName("DB 직접 조회 - Repository 2회 호출 검증")
     void testDbDirectRepositoryCall() {
-        Mockito.when(categoryRepository.findAll()).thenReturn(List.of());
+        Mockito.when(productRepository.findAll()).thenReturn(List.of());
         categoryService.getAllCategories();
         categoryService.getAllCategories();
-        Mockito.verify(categoryRepository, Mockito.times(2)).findAll();
+        Mockito.verify(productRepository, Mockito.times(2)).findAll();
     }
 }
