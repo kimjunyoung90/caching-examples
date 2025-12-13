@@ -31,7 +31,7 @@ services:
       # Redis 접속 정보는 Docker 네트워크에서 서비스 이름 'redis'로 접근합니다.
       - SPRING_REDIS_HOST=redis
       - SPRING_REDIS_PORT=6379
-      - SPRING_PROFILES_ACTIVE=distributed # 분산 캐시 설정 활성화
+      - SPRING_PROFILES_ACTIVE=redis # 분산 캐시 설정 활성화
       - SPRING_APPLICATION_NAME=cache-monitoring-app
       # Actuator 엔드포인트를 노출하여 Prometheus가 긁어갈 수 있도록 합니다.
     depends_on:
