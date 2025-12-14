@@ -29,6 +29,7 @@ public class RedisCacheConfig {
         //RedisCacheManager 빌드해 반환
         return RedisCacheManager.builder(redisConnectionFactory)
                 .cacheDefaults(config)
+                .enableStatistics() // 캐시 통계 활성화
                 .build();
     }
 }

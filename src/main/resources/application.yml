@@ -36,6 +36,11 @@ management:
     web:
       exposure:
         include: "*"
+  metrics:
+    enable:
+      cache: true  # 캐시 메트릭 활성화
+    tags:
+      application: ${spring.application.name}
 
 logging:
   level:

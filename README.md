@@ -55,6 +55,44 @@ docker-compose up
 
 이제 애플리케이션이 실행되었으며, API를 테스트할 준비가 되었습니다!
 
+### 4. 서비스 접속 URL
+
+Docker Compose로 실행하면 다음 서비스들에 접속할 수 있습니다:
+
+*   **Spring Boot 애플리케이션**: http://localhost:8080
+*   **Swagger UI (API 문서)**: http://localhost:8080/swagger-ui/index.html
+*   **Grafana (모니터링 대시보드)**: http://localhost:3000
+    *   로그인: `admin` / `admin`
+    *   **캐시 모니터링 대시보드**: http://localhost:3000/d/cache-monitoring/cache-monitoring-dashboard
+
+---
+
+## 캐시 모니터링 대시보드
+
+Grafana에서 실시간으로 캐시 성능을 모니터링할 수 있습니다.
+
+### 대시보드 접속
+
+```
+http://localhost:3000/d/cache-monitoring/cache-monitoring-dashboard
+```
+
+### 주요 모니터링 지표
+
+1.  **Cache Hit/Miss Rate**: 캐시 히트와 미스 발생 추이를 실시간으로 확인
+2.  **Cache Hit Rate %**: 현재 캐시 히트율 (0-100%)
+3.  **Redis Memory Usage**: Redis 메모리 사용량 모니터링
+4.  **Redis Connections & Keys**: Redis 연결 수 및 저장된 키 개수
+5.  **Application CPU Usage**: 애플리케이션 CPU 사용률
+6.  **JVM Heap Memory**: JVM 힙 메모리 사용량
+
+### 모니터링 활용 방법
+
+1.  대시보드에 접속합니다.
+2.  API를 여러 번 호출하며 캐시 히트/미스 패턴을 관찰합니다.
+3.  캐시 히트율이 높아질수록 성능이 개선되는 것을 확인할 수 있습니다.
+4.  데이터 업데이트 후 캐시 삭제(`@CacheEvict`) 동작을 실시간으로 확인합니다.
+
 ---
 
 ## 단계별 캐싱 전략 학습하기
