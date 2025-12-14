@@ -35,11 +35,7 @@ management:
   endpoints:
     web:
       exposure:
-        # health, info 외에 prometheus 엔드포인트를 명시적으로 노출해야 합니다.
-        include: 'health, info, prometheus'
-  metrics:
-    tags:
-      application: ${SPRING_APPLICATION_NAME} # Prometheus 지표에 애플리케이션 이름 태그 추가
+        include: "*"
 
 logging:
   level:

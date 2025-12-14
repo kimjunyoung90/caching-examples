@@ -24,6 +24,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.5.0'
 
+    // Monitoring (Prometheus)
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+
     // Database
     runtimeOnly 'com.h2database:h2'
 
