@@ -1,5 +1,6 @@
 package com.example.cachingexamples.level0;
 
+import com.example.cachingexamples.common.annotation.SimulateDelay;
 import com.example.cachingexamples.common.domain.Product;
 import com.example.cachingexamples.common.dto.ProductResponse;
 import com.example.cachingexamples.common.dto.ProductUpdateRequest;
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BasicProductService {
     private final ProductRepository productRepository;
 
+    @SimulateDelay
     @Transactional(readOnly = true)
     public ProductResponse getProduct(Long id) {
         Product product = productRepository.findById(id)

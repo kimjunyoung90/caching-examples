@@ -1,5 +1,6 @@
 package com.example.cachingexamples.level1;
 
+import com.example.cachingexamples.common.annotation.SimulateDelay;
 import com.example.cachingexamples.common.domain.Product;
 import com.example.cachingexamples.common.dto.ProductResponse;
 import com.example.cachingexamples.common.dto.ProductUpdateRequest;
@@ -16,6 +17,7 @@ public class CacheProductService {
 
     private final ProductRepository productRepository;
 
+    @SimulateDelay
     @Cacheable(value = "products", key = "#id")
     @Transactional(readOnly = true)
     public ProductResponse getProduct(Long id) {

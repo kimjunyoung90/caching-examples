@@ -46,3 +46,10 @@ logging:
   level:
     com.example.cache: DEBUG
     org.springframework.cache: TRACE
+
+# 데이터베이스 조회 지연 설정 (캐싱 효과 테스트용)
+app:
+  database:
+    simulate-delay:
+      enabled: true      # 지연 활성화 여부
+      milliseconds: 1000 # 지연 시간 (밀리초)
