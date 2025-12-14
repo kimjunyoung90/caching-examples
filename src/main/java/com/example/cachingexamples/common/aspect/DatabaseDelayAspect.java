@@ -5,10 +5,12 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Aspect
+@Order(Integer.MAX_VALUE)  // 가장 낮은 우선순위 (가장 안쪽에서 실행, @Cacheable 이후)
 @Component
 public class DatabaseDelayAspect {
 
